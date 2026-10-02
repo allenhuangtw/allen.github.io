@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Twitch 授權中...</title>
+</head>
+<body style="text-align:center; padding-top:50px; font-family:sans-serif;">
+  <h3>⏳ 授權成功！正在傳送憑證並關閉視窗...</h3>
+
+  <script>
+    // 1. 抓取 Twitch 帶回來的 code
+    const urlParams = new URLSearchParams(window.location.search);
+    const code = urlParams.get('code');
+
+    // 2. 把 code 傳回給原本的主頁面，然後關閉小視窗
+    if (code && window.opener) {
+      window.opener.postMessage({ type: 'TWITCH_AUTH_CODE', code: code }, '*');
+      setTimeout(() => { window.close(); }, 500);
+    }
+  </script>
+</body>
+</html>
